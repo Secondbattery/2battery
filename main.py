@@ -1,7 +1,8 @@
 import math
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import time
 import random
+import numpy
 
 p1 = []
 p2 = []
@@ -28,7 +29,7 @@ def Dot_Distance(x1, y1, x2, y2):  # 좌표값으로 가로 치수 측정
 
 
 for i in range(lot):
-    Unit_horizon.append(Dot_distance(p1[i][0], p1[i][1], p2[i][0], p2[i][1]))
+    Unit_horizon.append(Dot_Distance(p1[i][0], p1[i][1], p2[i][0], p2[i][1]))
 
 # print(Unit_horizon)
 
@@ -41,7 +42,7 @@ h_standard = 9.0  # 가로규격
 def Unit_Defect(Unit_horizon):
     # 측정된 치수와 규격비교하기
     for i in range(lot):
-        if Unit_horizon[i] == h_standard:
+        if (Unit_horizon[i] >= (h_standard * 0.96)) and (Unit_horizon[i] <= (h_standard * 1.04)):  # 규격의 +-4.0%의 오차범위 지정
             result = 1  # 양품
         else:
             result = 0  # 불량품
@@ -117,11 +118,12 @@ def Sample_Letter(lot):  # G2 검사 수준으로 샘플링 글자 추출
 def AQL_Chart(unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 AQL검사
     Re = 0  # 초기화
     sample = []
+    sample_defect = 0
 
     if letter == 'A' or letter == 'B':
         sample = random.sample(unit_pass, 3)
         Re = 1
-    elif letter == 'C' and letter == 'D' and letter == 'E':
+    elif letter == 'C' or letter == 'D' or letter == 'E':
         sample = random.sample(unit_pass, 13)
         Re = 2
     elif letter == 'F':
@@ -142,13 +144,13 @@ def AQL_Chart(unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 A
     elif letter == 'L':
         sample = random.sample(unit_pass, 200)
         Re = 15
-    elif letter == 'M' and letter == 'N' and letter == 'P' and letter == 'Q' and letter = 'R':
+    elif letter == 'M' or letter == 'N' or letter == 'P' or letter == 'Q' or letter == 'R':
         sample = random.sample(unit_pass, 315)
         Re = 22
 
-    for i in unit_pass:
+    for i in sample:  # 추출된 샘플 안에서 불량품개수 count
         if i == 0:
-            sample_defect += 1  # 추출된 샘플 안에서 불량품개수
+            sample_defect += 1
         elif i == 1:
             continue
 
@@ -160,33 +162,35 @@ def AQL_Chart(unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 A
     return AQL_pass
 
 
+# print(AQL_Chart(unit_pass, letter))
+
 # ---------------------------------------------------------------------------------------------
 
-def Sigma(Unit_horizon, option):  # 표준편차함수 // sd = 표준편차
-    if lot < 2:
-        return None
-    mean = sum(values) / lot
-    sd = 0  # 표준편차 초기화
-    sums = 0
-
-    for i in range(lot):
-        diff = values[i] - mean
-        sums += diff * diff
-    sd = math.sqrt(sums / (len(values) - option))
-    return mean, round(sd, 2)
+def Avg(Unit_horizon):  # 평균함수
+    avg = numpy.mean(Unit_horizon)
+    return round(avg, 2)
 
 
-# print("표준편차:", Sigma(Unit_horizon, 1))
+def Sigma(Unit_horizon):  # 표준편차함수
+    sigma = numpy.std(Unit_horizon)
+    return round(sigma, 2)
+
+# print(Avg(Unit_horizon))
+# print(Sigma(Unit_horizon))
 
 # ----------------------------------------------------------------------------------------------
 
-def PCA(sd):
-    USL = 12
-    LSL = 6
-    Cp = (USL - LSL) / (6 * sd)
-    return round(Cp, 2)
+# 최종 결과값
+# Unit_horizon=[9.0, 8.9, 9.2, 8.8, 8.7, 13.0, 9.3, 9.9, 8.5, 9.0]
 
+# unit_pass = [1, 1, 1, 1, 1, 0, 1, 0, 0, 1]
 
-Cp = PCA(Sigma(Unit_horizon, 1))
+# letter = 'B'
 
-# print("공정능력지수:", Cp)
+# AQL_pass = 1 (AQL_pass는 unit_pass에서 랜덤으로 뽑아서 평가하므로 값이 달라질 수 있습니다.)
+
+# sigma = 1.24
+
+# avg = 9.43
+
+# sigma = 1.24
