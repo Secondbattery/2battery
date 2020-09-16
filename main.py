@@ -162,7 +162,7 @@ def AQL_Chart(unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 A
 
 # ---------------------------------------------------------------------------------------------
 
-def Sigma(values, option):  # 표준편차함수 // sd = 표준편차
+def Sigma(Unit_horizon, option):  # 표준편차함수 // sd = 표준편차
     if lot < 2:
         return None
     mean = sum(values) / lot
@@ -173,7 +173,7 @@ def Sigma(values, option):  # 표준편차함수 // sd = 표준편차
         diff = values[i] - mean
         sums += diff * diff
     sd = math.sqrt(sums / (len(values) - option))
-    return round(sd, 2)
+    return mean, round(sd, 2)
 
 
 # print("표준편차:", Sigma(Unit_horizon, 1))
