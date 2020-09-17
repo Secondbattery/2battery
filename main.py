@@ -154,6 +154,7 @@ letter = Sample_Letter(lot)
 AQL_pass = AQL_Chart(Unit_pass, letter)
 
 Sigma = Sigma(Unit_horizon)
+print(Sigma)
 
 Mean = Avg(Unit_horizon)
 
@@ -165,8 +166,6 @@ Cp = PCA(Sigma,h_standard)
 # letter = 'F'
 
 # AQL_pass = 1 (AQL_pass는 unit_pass에서 랜덤으로 뽑아서 평가하므로 값이 달라질 수 있습니다.)
-
-# sigma = 1.24
 
 #Mean = 90.57
 
@@ -183,18 +182,19 @@ Cp = PCA(Sigma,h_standard)
 #커서획득
 #c=conn.cursor()
 
-#데이터삽입
-#for Unit_no in range(lot):
+#Unit_factory 테이블 데이터 삽입
+#for Unit_no in range(lot): #Unit_factory 테이블 데이터 삽입
 #        c.execute('''INSERT INTO Unit_factory(Unit_no, Unit_horizon, Unit_pass)
 #            VALUES(%d,%f,%d)''' % (Unit_no+1, Unit_horizon[Unit_no], Unit_pass[Unit_no]) )
-#for Unit_no in range(lot):
-#        c.execute('''INSERT INTO Unit_factory(Unit_no, Unit_horizon, Unit_pass)
-#            VALUES(%d,%f,%d)''' % (Unit_no+1, Unit_horizon[Unit_no], Unit_pass[Unit_no]) )
+#Result 테이블 데이터 삽입
+#for Unit_no in range(len(letter)):
+#        c.execute('''INSERT INTO Result_factory(Unit_no, AQL_pass, Sigma, Mean, Cp)
+#            VALUES(%d,%d,%f,%f,%f)''' % (Unit_no+1, AQL_pass, Sigma, Mean, Cp))
 
 # 데이서 불어오기
-#c.execute("SELECT Unit_horizon FROM Unit_factory")
+#c.execute("SELECT * FROM Result_factory")
 
 #데이터삭제
-#c.execute('''DELETE FROM Unit_factory''')
+#c.execute('''DELETE FROM Result_factory''')
 #conn.commit()
 #conn.close() #연결 닫기
