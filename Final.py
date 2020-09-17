@@ -1,24 +1,10 @@
 import sqlite3 as sqlite
+import socket
 import re
 import math
 import time
 import random
 import numpy
-
-#import RPi.GPIO as GPIO
-
-lot = 100 #검사하는 제품의 개수(로트크기)
-p1 = [] #좌표값 넣어주는 리스트1
-p2 = [] #좌표값 넣어주는 리스트2
-Unit_horizon = [] #측정된 가로치수 넣어주는 리스트
-Unit_pass = [] #측정된 치수들의 불량여부
-h_standard = 90.0  # 가로규격
-
-
-#def Append_Dot(dot1, dot2):  # Opencv에서 불러온 꼭지점 좌표 append
-#    p1.append(dot1)
-#    p2.append(dot2)
-
 
 p1 = [(5,1)]*100
 p2 = [(96,1), (92,1), (100,1), (95,1), (95,1), (97,1), (96,1), (96,1), (95,1), (94,1),
@@ -26,24 +12,30 @@ p2 = [(96,1), (92,1), (100,1), (95,1), (95,1), (97,1), (96,1), (96,1), (95,1), (
       (96,1), (95,1), (96,1), (94,1), (95,1), (95,1), (96,1), (96,1), (95,1), (96,1)]*3\
      +[(96,1), (97,1), (94,1), (93,1), (95,1), (94,1), (95,1), (96,1), (97,1), (93,1)]
 
+HOST = '127.0.0.1'
+PORT = 9000  # 0~65535. 0~1023은 예약되어 있음. 5000번부터 사용.
+Unit_horizon = [] #측정된 가로치수 넣어주는 리스트
+Unit_pass = [] #측정된 치수들의 불량여부
+h_standard = 90.0  # 가로규격
+lot=100
+Unit_number = -1
+
+#DB 생성(오토커밋)
+conn = sqlite.connect("test.db",isolation_level=None)
+#커서획득
+c=conn.cursor()
 
 
 def Dot_Distance(x1, y1, x2, y2):  # 좌표값으로 가로 치수 측정
-    result_horizon = round(math.sqrt(math.pow(abs(x1 - x2), 2) + math.pow(abs(y1 - y2), 2)), 1)
+    result_horizon  = round(math.sqrt(math.pow(abs(x1 - x2), 2) + math.pow(abs(y1 - y2), 2)), 1)
     return result_horizon
 
-
-
-def Unit_Defect(Unit_horizon): # 측정된 치수들 규격과 비교하기
-    for i in range(lot):
-        if (Unit_horizon[i] >= (h_standard * 0.96)) and (Unit_horizon[i] <= (h_standard * 1.04)):  # 규격의 +-4.0%의 오차범위 지정
-            result = 1  # 양품
-        else:
-            result = 0  # 불량품
-        Unit_pass.append(result)
-    return Unit_pass
-
-
+def Unit_Defect(Unit_number, Result_horizon): # 측정된 치수들 규격과 비교하기
+    if (Result_horizon >= (h_standard * 0.96)) and (Result_horizon <= (h_standard * 1.04)):  # 규격의 +-4.0%의 오차범위 지정
+        result = 1  # 양품
+    else:
+        result = 0  # 불량품
+    return result
 
 def Sample_Letter(lot):  # G2 검사 수준으로 샘플링 글자 추출
     if lot >= 1 and lot <= 8:
@@ -77,8 +69,6 @@ def Sample_Letter(lot):  # G2 검사 수준으로 샘플링 글자 추출
     elif lot >= 500001:
         letter = 'Q'
     return letter
-
-
 
 def AQL_Chart(Unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 AQL검사
     Re = 0  # Re값 초기화
@@ -122,19 +112,13 @@ def AQL_Chart(Unit_pass, letter):  # 기준오차율을 4.0으로 지정하여 A
         AQL_pass = 1
     return AQL_pass
 
-
-
 def Avg(Unit_horizon):  # 평균함수
     avg = numpy.mean(Unit_horizon)
     return round(avg, 2)
 
-
-
 def Sigma(Unit_horizon):  # 표준편차함수
     sigma = numpy.std(Unit_horizon)
     return round(sigma, 2)
-
-
 
 def PCA(sigma, h_standard):
     USL = h_standard * 1.04  # 규격상한
@@ -142,60 +126,75 @@ def PCA(sigma, h_standard):
     Cp = (USL - LSL) / (6 * sigma)
     return round(Cp, 2)
 
+def start(Unit_number):
+    #print(Unit_number)
+    Result_horizon = Dot_Distance(p1[Unit_number][0], p1[Unit_number][1], p2[Unit_number][0], p2[Unit_number][1])
+    Unit_horizon.append(Result_horizon)
+    #print(Result_horizon)
+    send_h = 'Distance'+str(Result_horizon)
+    client_socket.send(send_h.encode())
+    Result_pass = Unit_Defect(Unit_number, Result_horizon)
+    #LED켜기
+    #print(Result_pass)
+    Unit_pass.append(Result_pass)
+    send_p = 'Unit_Pass'+str(Result_pass)
+    client_socket.send(send_p.encode())
+
+    # Unit_factory 테이블 데이터 삽입
+    c.execute('''INSERT INTO Unit_factory(Unit_no, Unit_horizon, Unit_pass)
+        VALUES(%d,%f,%d)''' % (Unit_number, Result_horizon, Result_pass) )
+    if Unit_number == 5:
+        print('최종결과값이여유~')
+        AQL_pass = AQL_Chart(Unit_pass, Sample_Letter(Unit_number))
+        #print(AQL_pass)
+        send_aql = 'AQL_pass'+str(AQL_pass)
+        client_socket.send(send_aql.encode())
+        time.sleep(0.5)
+
+        Deviation = Sigma(Unit_horizon)
+        #print(Deviation)
+        send_s = 'Sigma'+str(Deviation)
+        client_socket.send(send_s.encode())
+        time.sleep(0.5)
+
+        Mean = Avg(Unit_horizon)
+        #print(Mean)
+        send_m = 'Mean'+str(Mean)
+        client_socket.send(send_m.encode())
+        time.sleep(0.5)
+
+        Cp = PCA(Deviation, h_standard)
+        #print(Cp)
+        send_cp = 'Cp' + str(Cp)
+        client_socket.send(send_cp.encode())
+
+        # Result_factory 테이블 데이터 삽입
+        c.execute('''INSERT INTO Result_factory(Unit_no, AQL_pass, Sigma, Mean, Cp)
+            VALUES(%d,%d,%f,%f,%f)''' % (Unit_number, AQL_pass, Deviation, Mean, Cp))
+        return
 
 
-# 최종 결과값
-for i in range(lot):
-    Unit_horizon.append(Dot_Distance(p1[i][0], p1[i][1], p2[i][0], p2[i][1]))
-
-Unit_pass = Unit_Defect(Unit_horizon)
-
-letter = Sample_Letter(lot)
-
-AQL_pass = AQL_Chart(Unit_pass, letter)
-
-Sigma = Sigma(Unit_horizon)
-print(Sigma)
-
-Mean = Avg(Unit_horizon)
-
-Cp = PCA(Sigma,h_standard)
-
-
-
-
-# letter = 'F'
-
-# AQL_pass = 1 (AQL_pass는 unit_pass에서 랜덤으로 뽑아서 평가하므로 값이 달라질 수 있습니다.)
-
-#Mean = 90.57
-
-#Sigma = 1.6
-
-#Cp = 0.75
 
 
 
 
 
-#DB 생성(오토커밋)
-conn = sqlite.connect("test.db",isolation_level=None)
-#커서획득
-c=conn.cursor()
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-#Unit_factory 테이블 데이터 삽입
-#for Unit_no in range(lot): #Unit_factory 테이블 데이터 삽입
-#        c.execute('''INSERT INTO Unit_factory(Unit_no, Unit_horizon, Unit_pass)
-#            VALUES(%d,%f,%d)''' % (Unit_no+1, Unit_horizon[Unit_no], Unit_pass[Unit_no]) )
-#Result 테이블 데이터 삽입
-#for Unit_no in range(len(letter)):
-#        c.execute('''INSERT INTO Result_factory(Unit_no, AQL_pass, Sigma, Mean, Cp)
-#            VALUES(%d,%d,%f,%f,%f)''' % (Unit_no+1, AQL_pass, Sigma, Mean, Cp))
+server_socket.bind((HOST, PORT))
+server_socket.listen()
+client_socket, addr = server_socket.accept()
+print('[ Server Message : Connected by {} ]'.format(addr))
 
-# 데이서 불어오기
-#c.execute("SELECT * FROM Result_factory")
+#data추출
+while True:
+    a = input("물건이 들어왔나유?")
+    if a=='y':
+        Unit_number+=1
+        start(Unit_number)
+    else:
+        break
 
-#데이터삭제
-c.execute('''DELETE FROM Unit_factory''')
-conn.commit()
-conn.close() #연결 닫기
+client_socket.close()
+server_socket.close()
