@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.CloseBtn = new System.Windows.Forms.Button();
@@ -46,13 +47,21 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Chart2Btn = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.PCAText = new System.Windows.Forms.Label();
             this.AQLText = new System.Windows.Forms.Label();
             this.LOTTEXT = new System.Windows.Forms.Label();
+            this.BatteryName = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.SigmaValue = new System.Windows.Forms.Label();
+            this.MeanValue = new System.Windows.Forms.Label();
+            this.CPValueText = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.panel1.SuspendLayout();
@@ -60,16 +69,21 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.AxisX.Title = "Horizontal";
+            chartArea5.AxisY.Title = "Count";
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(14, 13);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.Color = System.Drawing.Color.DarkOrchid;
+            series7.Legend = "Legend1";
+            series7.Name = "치수값분포";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(523, 524);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -87,9 +101,10 @@
             // 
             this.CloseBtn.Location = new System.Drawing.Point(1192, 674);
             this.CloseBtn.Name = "CloseBtn";
+            this.CloseBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.CloseBtn.Size = new System.Drawing.Size(151, 65);
             this.CloseBtn.TabIndex = 2;
-            this.CloseBtn.Text = "CloseBtn";
+            this.CloseBtn.Text = "종료하기";
             this.CloseBtn.UseVisualStyleBackColor = true;
             this.CloseBtn.Click += new System.EventHandler(this.CloseBtn_Click);
             // 
@@ -109,7 +124,7 @@
             this.ConnectBtn.Name = "ConnectBtn";
             this.ConnectBtn.Size = new System.Drawing.Size(151, 65);
             this.ConnectBtn.TabIndex = 5;
-            this.ConnectBtn.Text = "Connect";
+            this.ConnectBtn.Text = "접속";
             this.ConnectBtn.UseVisualStyleBackColor = true;
             this.ConnectBtn.Click += new System.EventHandler(this.ConnectBtn_Click);
             // 
@@ -154,25 +169,31 @@
             // 
             this.chart2.BorderlineColor = System.Drawing.Color.Maroon;
             this.chart2.BorderlineWidth = 3;
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea6.AxisX.Title = "Warping";
+            chartArea6.AxisY.Title = "Frequency";
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart2.Legends.Add(legend6);
             this.chart2.Location = new System.Drawing.Point(867, 13);
             this.chart2.Name = "chart2";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.Name = "Line";
-            this.chart2.Series.Add(series2);
-            this.chart2.Series.Add(series3);
-            this.chart2.Size = new System.Drawing.Size(476, 524);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "정규분포Bar";
+            series9.BorderWidth = 3;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series9.Legend = "Legend1";
+            series9.Name = "Line";
+            series9.YValuesPerPoint = 2;
+            this.chart2.Series.Add(series8);
+            this.chart2.Series.Add(series9);
+            this.chart2.Size = new System.Drawing.Size(525, 524);
             this.chart2.TabIndex = 11;
             this.chart2.Text = "chart2";
+            title3.DockedToChartArea = "ChartArea1";
+            title3.Name = "CP 정규분포 차트";
+            this.chart2.Titles.Add(title3);
             // 
             // Chart2Btn
             // 
@@ -184,49 +205,25 @@
             this.Chart2Btn.UseVisualStyleBackColor = true;
             this.Chart2Btn.Click += new System.EventHandler(this.Chart2Btn_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("굴림", 15F);
-            this.label3.Location = new System.Drawing.Point(4, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 20);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "공정능력평가 :";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("굴림", 15F);
-            this.label4.Location = new System.Drawing.Point(3, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(193, 20);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "합격품질수준(AQL) :";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("굴림", 15F);
-            this.label5.Location = new System.Drawing.Point(3, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(130, 20);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "전체 검사수 :";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.CPValueText);
+            this.panel1.Controls.Add(this.MeanValue);
+            this.panel1.Controls.Add(this.SigmaValue);
+            this.panel1.Controls.Add(this.textBox6);
+            this.panel1.Controls.Add(this.textBox5);
+            this.panel1.Controls.Add(this.textBox4);
+            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.PCAText);
             this.panel1.Controls.Add(this.AQLText);
             this.panel1.Controls.Add(this.LOTTEXT);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(543, 231);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(314, 164);
+            this.panel1.Size = new System.Drawing.Size(314, 306);
             this.panel1.TabIndex = 16;
             // 
             // PCAText
@@ -234,18 +231,19 @@
             this.PCAText.AutoSize = true;
             this.PCAText.Font = new System.Drawing.Font("굴림", 15F);
             this.PCAText.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.PCAText.Location = new System.Drawing.Point(224, 117);
+            this.PCAText.Location = new System.Drawing.Point(201, 112);
             this.PCAText.Name = "PCAText";
             this.PCAText.Size = new System.Drawing.Size(20, 20);
             this.PCAText.TabIndex = 18;
             this.PCAText.Text = "0";
+            this.PCAText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AQLText
             // 
             this.AQLText.AutoSize = true;
             this.AQLText.Font = new System.Drawing.Font("굴림", 15F);
             this.AQLText.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.AQLText.Location = new System.Drawing.Point(224, 71);
+            this.AQLText.Location = new System.Drawing.Point(201, 67);
             this.AQLText.Name = "AQLText";
             this.AQLText.Size = new System.Drawing.Size(20, 20);
             this.AQLText.TabIndex = 17;
@@ -256,17 +254,137 @@
             this.LOTTEXT.AutoSize = true;
             this.LOTTEXT.Font = new System.Drawing.Font("굴림", 15F);
             this.LOTTEXT.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.LOTTEXT.Location = new System.Drawing.Point(224, 19);
+            this.LOTTEXT.Location = new System.Drawing.Point(201, 21);
             this.LOTTEXT.Name = "LOTTEXT";
             this.LOTTEXT.Size = new System.Drawing.Size(20, 20);
             this.LOTTEXT.TabIndex = 16;
             this.LOTTEXT.Text = "0";
+            // 
+            // BatteryName
+            // 
+            this.BatteryName.AutoSize = true;
+            this.BatteryName.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.BatteryName.ForeColor = System.Drawing.Color.Salmon;
+            this.BatteryName.Location = new System.Drawing.Point(442, 560);
+            this.BatteryName.Name = "BatteryName";
+            this.BatteryName.Size = new System.Drawing.Size(346, 42);
+            this.BatteryName.TabIndex = 17;
+            this.BatteryName.Text = "Project : Battery";
+            this.BatteryName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label9.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label9.Location = new System.Drawing.Point(442, 614);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(880, 42);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "2차전지 치수측정을 통한 불량률 산출 및 평가";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox1.Location = new System.Drawing.Point(7, 268);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(175, 29);
+            this.textBox1.TabIndex = 22;
+            this.textBox1.Text = "CP";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox2.Location = new System.Drawing.Point(7, 214);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(175, 29);
+            this.textBox2.TabIndex = 23;
+            this.textBox2.Text = "평균";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox3.Location = new System.Drawing.Point(7, 159);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(175, 29);
+            this.textBox3.TabIndex = 24;
+            this.textBox3.Text = "표준편차";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox4.Location = new System.Drawing.Point(7, 108);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(175, 29);
+            this.textBox4.TabIndex = 25;
+            this.textBox4.Text = "공정능력평가";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox5.Location = new System.Drawing.Point(7, 62);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(175, 29);
+            this.textBox5.TabIndex = 26;
+            this.textBox5.Text = "합격품질수준";
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            // 
+            // textBox6
+            // 
+            this.textBox6.Font = new System.Drawing.Font("굴림", 14F);
+            this.textBox6.Location = new System.Drawing.Point(7, 17);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(175, 29);
+            this.textBox6.TabIndex = 27;
+            this.textBox6.Text = "LOT";
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // SigmaValue
+            // 
+            this.SigmaValue.AutoSize = true;
+            this.SigmaValue.Font = new System.Drawing.Font("굴림", 15F);
+            this.SigmaValue.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.SigmaValue.Location = new System.Drawing.Point(201, 163);
+            this.SigmaValue.Name = "SigmaValue";
+            this.SigmaValue.Size = new System.Drawing.Size(20, 20);
+            this.SigmaValue.TabIndex = 28;
+            this.SigmaValue.Text = "0";
+            // 
+            // MeanValue
+            // 
+            this.MeanValue.AutoSize = true;
+            this.MeanValue.Font = new System.Drawing.Font("굴림", 15F);
+            this.MeanValue.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.MeanValue.Location = new System.Drawing.Point(201, 218);
+            this.MeanValue.Name = "MeanValue";
+            this.MeanValue.Size = new System.Drawing.Size(20, 20);
+            this.MeanValue.TabIndex = 29;
+            this.MeanValue.Text = "0";
+            // 
+            // CPValueText
+            // 
+            this.CPValueText.AutoSize = true;
+            this.CPValueText.Font = new System.Drawing.Font("굴림", 15F);
+            this.CPValueText.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.CPValueText.Location = new System.Drawing.Point(201, 270);
+            this.CPValueText.Name = "CPValueText";
+            this.CPValueText.Size = new System.Drawing.Size(20, 20);
+            this.CPValueText.TabIndex = 30;
+            this.CPValueText.Text = "0";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1404, 758);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.BatteryName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Chart2Btn);
             this.Controls.Add(this.chart2);
@@ -305,13 +423,21 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.Button Chart2Btn;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label PCAText;
         private System.Windows.Forms.Label AQLText;
         private System.Windows.Forms.Label LOTTEXT;
+        private System.Windows.Forms.Label BatteryName;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label CPValueText;
+        private System.Windows.Forms.Label MeanValue;
+        private System.Windows.Forms.Label SigmaValue;
     }
 }
 

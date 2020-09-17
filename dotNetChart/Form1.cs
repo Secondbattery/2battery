@@ -28,6 +28,9 @@ namespace dotNetChart
         private int resultLOT = 100;
         private float resultSigma = 1.24f;
 
+
+        private string Passed = "";
+
         private float[] SampleDistance = { 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 92.0f, 89.0f, 88.0f, 90.0f, 89.0f, 90.0f, 91.0f, 92.0f, 88.0f };
         private List<float> SampleDt = new List<float>();
         private List<float> numsman = new List<float>();
@@ -66,7 +69,7 @@ namespace dotNetChart
       
         private void Form1_Load(object sender, EventArgs e)
         {
-            for(float i = 4.0f; i < 13.1f; i += 0.1f)
+            for(float i = average-5.0f; i < average+5.0f; i += 0.1f)
             {
                 numsman.Add(i);
             }
@@ -88,7 +91,7 @@ namespace dotNetChart
         {
             string str = data;
             if (data.Contains("CP"))
-            {
+            {  
                 str = str.Substring(2);
                 //CP를 제외한 값을 저장
                 try
@@ -160,6 +163,48 @@ namespace dotNetChart
             {
                 str = str.Substring(5);
             }
+            else if (data.Contains("Mean"))
+            {
+                str = str.Substring(4);
+                float a = 0f;
+                try
+                {
+                    a = Convert.ToSingle(str);
+                }
+                catch
+                {
+                    Application.Exit();
+                }
+
+                //float a = Convert.ToSingle(str);
+                average = a;
+            }
+            else if (data.Contains("Pass"))
+            {
+                str = str.Substring(4);
+                int a = 0;
+                try
+                {
+                    a = Convert.ToInt32(str);
+                }
+                catch(Exception e)
+                {
+                    Application.Exit();
+                }
+                finally
+                {
+                    if (a == 0)
+                    {
+                        Passed = "불합격";
+                    }
+                    else if (a == 1)
+                    {
+                        Passed = "합격";
+                    }
+                    
+                }
+                
+            }
             else
                 return str;
 
@@ -195,38 +240,12 @@ namespace dotNetChart
                     }
                 }
                 chart1.Series[0].Points.AddXY(SampleDt[k], xx);
-                string test = string.Format("치수 : {0}  현재개수 : {1}  검사횟수 : {2}", SampleDt[count], xx, count+1);
+                string test = string.Format("치수 : {0}  합/불합 : {1}  검사횟수 : {2}", SampleDt[count], Passed, count+1);
                 listBox1.Items.Add(test);
                 count++;
                 LOTTEXT.Text = count.ToString();
                 DelaySystem(100);
-            }/*
-            for (int j = 0; j < 100; j++)
-            {
-                int a = r.Next(0, 5);
-                Sample.Add(a);
-                if (count > 99)
-                {
-                    return;
-                }
-                int x = Sample[count];
-                int xx = 0;
-                for (int i = 0; i < Sample.Count(); i++)
-                {
-                    if (Sample[i] == x)
-                    {
-                        xx++;
-                    }
-                }
-                //int x = Sample[count];
-                chart1.Series[0].Points.AddXY(Sample[count], xx);
-                string test = string.Format("치수 : {0}  현재개수 : {1}  검사횟수 : {2}", Sample[count], xx, count);
-                listBox1.Items.Add(test);
-                count++;
-                LOTTEXT.Text = count.ToString();
-                DelaySystem(200);
-
-            }*/
+            }
         }
 
         private void chart1_Click(object sender, EventArgs e)
@@ -288,14 +307,15 @@ namespace dotNetChart
                     byte[] bytes = new byte[1024];
                     int bytesRec = client_socket.Receive(bytes);
                     string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+                    listBox1.Items.Add(String.Format("New Data is pushed : {0}", data.ToString()));
                     string data2 = WhatData(data);
 
-                    listBox1.Items.Add(data2);
+                   // listBox1.Items.Add(String.Format("New Data is pushed : {0}",data2.ToString()));
                 }
             }
-            catch (InvalidOperationException e)
+            catch (Exception e)
             {
-                listBox1.Items.Add("Receive Error");
+                listBox1.Items.Add(String.Format("실패",e.Message));
             }
         }
 
@@ -382,9 +402,18 @@ namespace dotNetChart
             {
                 AQLText.Text = "에러발생";
             }
+
+            CPValueText.Text = resultCP.ToString();
+            MeanValue.Text = average.ToString();
+            SigmaValue.Text = resultSigma.ToString();
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
         }
