@@ -25,10 +25,11 @@ namespace dotNetChart
         // var normal = new NormalDis
         private float resultCP = 0.75f;
         private int resultAQL = 0;
-        private int resultLOT = 0;
+        private int resultLOT = 100;
         private float resultSigma = 1.24f;
 
-        //private float[] nums = { };
+        private float[] SampleDistance = { 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 87.0f, 95.0f, 90.0f, 90.0f, 92.0f, 91.0f, 91.0f, 90.0f, 89.0f, 92.0f, 88.0f, 94.1f, 89.0f, 90.0f, 92.0f, 91.0f, 91.0f, 93.0f, 89.0f, 91.0f, 90.0f, 91.0f, 89.0f, 90.0f, 90.0f, 91.0f, 91.0f, 90.0f, 91.0f, 91.0f, 92.0f, 89.0f, 88.0f, 90.0f, 89.0f, 90.0f, 91.0f, 92.0f, 88.0f };
+        private List<float> SampleDt = new List<float>();
         private List<float> numsman = new List<float>();
         //여기서부터 프로토콜
         Socket client_socket = null;
@@ -69,7 +70,7 @@ namespace dotNetChart
             {
                 numsman.Add(i);
             }
-            
+            SampleDt.Clear();
             Sample.Clear();
             /* for(int i=0;i<100;i++)
              {
@@ -177,6 +178,29 @@ namespace dotNetChart
         }
         private void button3_Click(object sender, EventArgs e)
         {
+            for (int k = 0; k < 100; k++)
+            {
+                SampleDt.Add(SampleDistance[k]);
+                if (count > 99)
+                {
+                    return;
+                }
+                float x = SampleDt[count];
+                int xx = 0;
+                for(int v=0;v< SampleDt.Count(); v++)
+                {
+                    if(SampleDt[v]==x)
+                    {
+                        xx++;
+                    }
+                }
+                chart1.Series[0].Points.AddXY(SampleDt[k], xx);
+                string test = string.Format("치수 : {0}  현재개수 : {1}  검사횟수 : {2}", SampleDt[count], xx, count+1);
+                listBox1.Items.Add(test);
+                count++;
+                LOTTEXT.Text = count.ToString();
+                DelaySystem(100);
+            }/*
             for (int j = 0; j < 100; j++)
             {
                 int a = r.Next(0, 5);
@@ -202,7 +226,7 @@ namespace dotNetChart
                 LOTTEXT.Text = count.ToString();
                 DelaySystem(200);
 
-            }
+            }*/
         }
 
         private void chart1_Click(object sender, EventArgs e)

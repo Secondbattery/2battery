@@ -8,3 +8,13 @@ E:\CSharp\dotNetChart\dotNetChart\obj\Debug\dotNetChart.csproj.GenerateResource.
 E:\CSharp\dotNetChart\dotNetChart\obj\Debug\dotNetChart.csproj.CoreCompileInputs.cache
 E:\CSharp\dotNetChart\dotNetChart\obj\Debug\dotNetChart.exe
 E:\CSharp\dotNetChart\dotNetChart\obj\Debug\dotNetChart.pdb
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\bin\Debug\dotNetChart.exe.config
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\bin\Debug\dotNetChart.exe
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\bin\Debug\dotNetChart.pdb
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.csprojAssemblyReference.cache
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.Form1.resources
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.Properties.Resources.resources
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.csproj.GenerateResource.cache
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.csproj.CoreCompileInputs.cache
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.exe
+E:\CSharp\dotNetChart\Secondbattery\2battery\dotNetChart\obj\Debug\dotNetChart.pdb
