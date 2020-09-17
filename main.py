@@ -9,7 +9,7 @@ p2 = []
 
 lot = 10
 
-
+ 
 def Append_Dot(dot1, dot2):  # Opencv에서 불러온 꼭지점 좌표 append
     p1.append(dot1)
     p2.append(dot2)
