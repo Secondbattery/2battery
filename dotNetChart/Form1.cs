@@ -136,6 +136,7 @@ namespace dotNetChart
                     DistanceObject.Add(a);
                     count = DistanceObject.Count();
                     resultLOT = count;
+                    LOTTEXT.Text = resultLOT.ToString();
                     int x = 0;
                     for (int i = 0; i < count; i++)
                     {
@@ -352,24 +353,24 @@ namespace dotNetChart
             {
                 pca = "매우 탁월함";
             }
-            else if(cp <2f )
+            else if(cp >1.67f )
             {
                 pca = "매우 우수함";
             }
-            else if(cp < 1.67f)
+            else if(cp > 1.33f)
             {
                 pca = "우수함";
             }
-            else if (cp < 1.33f)
+            else if (cp > 1.0f)
             {
                 pca = "보통";
 
             }
-            else if (cp < 1.0f)
+            else if (cp > 0.67f)
             {
                 pca = "저조함";
             }
-            else if (cp < 0.67f)
+            else if (cp > 0f)
             {
                 pca = "불량함";
             }
