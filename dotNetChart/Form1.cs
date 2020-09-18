@@ -69,35 +69,25 @@ namespace dotNetChart
       
         private void Form1_Load(object sender, EventArgs e)
         {
-            for(float i = average-5.0f; i < average+5.0f; i += 0.1f)
-            {
-                numsman.Add(i);
-            }
+            
             SampleDt.Clear();
             Sample.Clear();
-            /* for(int i=0;i<100;i++)
-             {
-                 int a = r.Next(0, 5);
-                 Sample.Add(a);
-             }
-             for(int i=0;i<100;i++)
-             {
-                 int b = r.Next(0, 3);
-             }*/
+            count = 0;
+            
             chart2.Series[1].Color = Color.Red;
-            //chart1.Series[0].ChartType = SeriesChartType.Bar;
+            
         }
         private string WhatData(string data)
         {
             string str = data;
-            if (data.Contains("CP"))
+            if (data.Contains("Cp"))
             {  
                 str = str.Substring(2);
                 //CP를 제외한 값을 저장
                 try
                 {
                     float a = Convert.ToSingle(str);
-
+                    resultCP = a;
                 }
                 catch (Exception e)
                 {
@@ -107,9 +97,9 @@ namespace dotNetChart
 
 
             }
-            else if (data.Contains("AQL"))
+            else if (data.Contains("AQL_pass"))
             {
-                str = str.Substring(3);
+                str = str.Substring(8);
 
                 try
                 {
@@ -144,21 +134,29 @@ namespace dotNetChart
                 {
                     float a = Convert.ToSingle(str);
                     DistanceObject.Add(a);
-
+                    count = DistanceObject.Count();
+                    resultLOT = count;
+                    int x = 0;
+                    for (int i = 0; i < count; i++)
+                    {
+                        if(DistanceObject[i]==a)
+                        {
+                            x++;
+                        }
+                    }
+                    //Show_ChartOne(a);
+                    chart1.Series[0].Points.AddXY(a, x);
                 }
-                catch (System.IndexOutOfRangeException e)
+                catch (Exception e)
                 {
-                    System.Console.WriteLine(e.Message);
-                    throw new System.ArgumentOutOfRangeException("index parameter is out");
+                    //System.Console.WriteLine(e.Message);
+                    //throw new System.ArgumentOutOfRangeException("index parameter is out");
 
                 }
 
 
             }
-            else if (data.Contains("Average"))
-            {
-                str = str.Substring(7);
-            }
+         
             else if (data.Contains("Sigma"))
             {
                 str = str.Substring(5);
@@ -179,9 +177,9 @@ namespace dotNetChart
                 //float a = Convert.ToSingle(str);
                 average = a;
             }
-            else if (data.Contains("Pass"))
+            else if (data.Contains("Unit_pass"))
             {
-                str = str.Substring(4);
+                str = str.Substring(9);
                 int a = 0;
                 try
                 {
@@ -196,10 +194,12 @@ namespace dotNetChart
                     if (a == 0)
                     {
                         Passed = "불합격";
+                        listBox1.Items.Add(Passed);
                     }
                     else if (a == 1)
                     {
                         Passed = "합격";
+                        listBox1.Items.Add(Passed);
                     }
                     
                 }
@@ -221,6 +221,7 @@ namespace dotNetChart
                 dtAfter = DateTime.Now;
             }
         }
+       
         private void button3_Click(object sender, EventArgs e)
         {
             for (int k = 0; k < 100; k++)
@@ -289,7 +290,7 @@ namespace dotNetChart
                 client_socket.Connect(new IPEndPoint(IPAddress.Parse(IPBox.Text), portnum));
                 listBox1.Items.Add(String.Format("소켓 연결 완료 {0}", client_socket.RemoteEndPoint.ToString()));
                 isConnected = true;
-                Thread listen_thread = new Thread(do_receive);
+                Thread listen_thread = new Thread(Do_receive);
                 listen_thread.Start();
 
             }
@@ -298,7 +299,7 @@ namespace dotNetChart
                 listBox1.Items.Add(String.Format("연결 실패", ex.Message));
             }
         }
-        void do_receive()
+        void Do_receive()
         {
             try
             {
@@ -378,9 +379,14 @@ namespace dotNetChart
             }
             return pca;
         }
+       
         private void Chart2Btn_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i<numsman.Count;i++)
+            for (float i = average - 5.0f; i < average + 5.0f; i += 0.1f)
+            {
+                numsman.Add(i);
+            }
+            for (int i = 0; i<numsman.Count;i++)
             {
                 chart2.Series[0].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
                 chart2.Series[1].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
@@ -406,6 +412,7 @@ namespace dotNetChart
             CPValueText.Text = resultCP.ToString();
             MeanValue.Text = average.ToString();
             SigmaValue.Text = resultSigma.ToString();
+            LOTTEXT.Text = resultLOT.ToString();
         }
 
         private void label3_Click(object sender, EventArgs e)
