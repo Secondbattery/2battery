@@ -25,7 +25,6 @@ conn = sqlite.connect("test.db",isolation_level=None)
 #커서획득
 c=conn.cursor()
 
-
 def Dot_Distance(x1, y1, x2, y2):  # 좌표값으로 가로 치수 측정
     result_horizon  = round(math.sqrt(math.pow(abs(x1 - x2), 2) + math.pow(abs(y1 - y2), 2)), 1)
     return result_horizon
@@ -127,67 +126,44 @@ def PCA(sigma, h_standard):
     return round(Cp, 2)
 
 def start(Unit_number):
-    #print(Unit_number)
+    print(Unit_number)
     Result_horizon = Dot_Distance(p1[Unit_number][0], p1[Unit_number][1], p2[Unit_number][0], p2[Unit_number][1])
     Unit_horizon.append(Result_horizon)
-    #print(Result_horizon)
-    send_h = 'Distance'+str(Result_horizon)
-    client_socket.send(send_h.encode())
+    print(Result_horizon)
     Result_pass = Unit_Defect(Unit_number, Result_horizon)
     #LED켜기
-    #print(Result_pass)
+    print(Result_pass)
     Unit_pass.append(Result_pass)
-    send_p = 'Unit_Pass'+str(Result_pass)
-    client_socket.send(send_p.encode())
+
 
     # Unit_factory 테이블 데이터 삽입
     c.execute('''INSERT INTO Unit_factory(Unit_no, Unit_horizon, Unit_pass)
         VALUES(%d,%f,%d)''' % (Unit_number, Result_horizon, Result_pass) )
+
     if Unit_number == 5:
         print('최종결과값이여유~')
         AQL_pass = AQL_Chart(Unit_pass, Sample_Letter(Unit_number))
-        #print(AQL_pass)
-        send_aql = 'AQL_pass'+str(AQL_pass)
-        client_socket.send(send_aql.encode())
+        print(AQL_pass)
         time.sleep(0.5)
 
         Deviation = Sigma(Unit_horizon)
-        #print(Deviation)
-        send_s = 'Sigma'+str(Deviation)
-        client_socket.send(send_s.encode())
+        print(Deviation)
         time.sleep(0.5)
 
         Mean = Avg(Unit_horizon)
-        #print(Mean)
-        send_m = 'Mean'+str(Mean)
-        client_socket.send(send_m.encode())
+        print(Mean)
         time.sleep(0.5)
 
         Cp = PCA(Deviation, h_standard)
-        #print(Cp)
-        send_cp = 'Cp' + str(Cp)
-        client_socket.send(send_cp.encode())
+        print(Cp)
 
         # Result_factory 테이블 데이터 삽입
         c.execute('''INSERT INTO Result_factory(Unit_no, AQL_pass, Sigma, Mean, Cp)
-            VALUES(%d,%d,%f,%f,%f)''' % (Unit_number, AQL_pass, Deviation, Mean, Cp))
+                    VALUES(%d,%d,%f,%f,%f)''' % (Unit_number, AQL_pass, Deviation, Mean, Cp))
         return
 
 
 
-
-
-
-
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-server_socket.bind((HOST, PORT))
-server_socket.listen()
-client_socket, addr = server_socket.accept()
-print('[ Server Message : Connected by {} ]'.format(addr))
-
-#data추출
 while True:
     a = input("물건이 들어왔나유?")
     if a=='y':
@@ -195,6 +171,3 @@ while True:
         start(Unit_number)
     else:
         break
-
-client_socket.close()
-server_socket.close()
