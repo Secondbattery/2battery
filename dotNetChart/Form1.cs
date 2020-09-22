@@ -133,25 +133,12 @@ namespace dotNetChart
                 try
                 {
                     float a = Convert.ToSingle(str);
-                    DistanceObject.Add(a);
-                    count = DistanceObject.Count();
-                    resultLOT = count;
-                    LOTTEXT.Text = resultLOT.ToString();
-                    int x = 0;
-                    for (int i = 0; i < count; i++)
-                    {
-                        if(DistanceObject[i]==a)
-                        {
-                            x++;
-                        }
-                    }
-                    //Show_ChartOne(a);
-                    chart1.Series[0].Points.AddXY(a, x);
+                    Show_Unit_Defect(a);
+                 
                 }
                 catch (Exception e)
                 {
-                    //System.Console.WriteLine(e.Message);
-                    //throw new System.ArgumentOutOfRangeException("index parameter is out");
+                    
 
                 }
 
@@ -194,12 +181,12 @@ namespace dotNetChart
                 {
                     if (a == 0)
                     {
-                        Passed = "불합격";
+                        Passed = "Fail";
                         listBox1.Items.Add(Passed);
                     }
                     else if (a == 1)
                     {
-                        Passed = "합격";
+                        Passed = "Pass";
                         listBox1.Items.Add(Passed);
                     }
                     
@@ -289,7 +276,7 @@ namespace dotNetChart
             {
                 client_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 client_socket.Connect(new IPEndPoint(IPAddress.Parse(IPBox.Text), portnum));
-                listBox1.Items.Add(String.Format("소켓 연결 완료 {0}", client_socket.RemoteEndPoint.ToString()));
+                listBox1.Items.Add(String.Format("Socket Connection Success {0}", client_socket.RemoteEndPoint.ToString()));
                 isConnected = true;
                 Thread listen_thread = new Thread(Do_receive);
                 listen_thread.Start();
@@ -297,7 +284,7 @@ namespace dotNetChart
             }
             catch (Exception ex)
             {
-                listBox1.Items.Add(String.Format("연결 실패", ex.Message));
+                listBox1.Items.Add(String.Format("Connection Fail", ex.Message));
             }
         }
         void Do_receive()
@@ -321,21 +308,8 @@ namespace dotNetChart
             }
         }
 
-      /*  private void resultbtn_Click(object sender, EventArgs e)
-        {
-           
-        }*/
-    
-        #region y좌표구하기 - GetY(x, oneOver2PI,mean,standardDeviation, variance)
 
-
-
-        private float GetY(float x, float oneOver2PI, float mean, float standardDeviation, float variance)
-        {
-            return (float)(oneOver2PI * Math.Exp(-(x - mean) * (x - mean) / (2 * variance)));
-
-        }
-        #endregion
+      
         private double Calculman(double x, float mean, float sigma)
         {
             double y = 0f;
@@ -351,69 +325,41 @@ namespace dotNetChart
             string pca = "";
             if (cp >= 2f)
             {
-                pca = "매우 탁월함";
+                pca = "Excellent";
             }
             else if(cp >1.67f )
             {
-                pca = "매우 우수함";
+                pca = "Very Good";
             }
             else if(cp > 1.33f)
             {
-                pca = "우수함";
+                pca = "Good";
             }
             else if (cp > 1.0f)
             {
-                pca = "보통";
+                pca = "Normal";
 
             }
             else if (cp > 0.67f)
             {
-                pca = "저조함";
+                pca = "Not Good";
             }
             else if (cp > 0f)
             {
-                pca = "불량함";
+                pca = "Bad";
             }
             else
             {
-                pca = "매우 불량함";
+                pca = "Worst";
             }
             return pca;
         }
        
         private void Chart2Btn_Click(object sender, EventArgs e)
         {
-            for (float i = average - 5.0f; i < average + 5.0f; i += 0.1f)
-            {
-                numsman.Add(i);
-            }
-            for (int i = 0; i<numsman.Count;i++)
-            {
-                chart2.Series[0].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
-                chart2.Series[1].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
-                DelaySystem(100);
-            }
-            //LOTTEXT.Text = count.ToString();
-            string datacp = CPCheck(resultCP);
-            PCAText.Text = datacp;
-            if(resultAQL == 1)
-            {
-                AQLText.Text = "합격";
-            }
-            else if(resultAQL == 0)
-            {
-                AQLText.Text = "불합격";
-
-            }
-            else
-            {
-                AQLText.Text = "에러발생";
-            }
-
-            CPValueText.Text = resultCP.ToString();
-            MeanValue.Text = average.ToString();
-            SigmaValue.Text = resultSigma.ToString();
-            LOTTEXT.Text = resultLOT.ToString();
+          
+            Show_Graph_Cil();
+            Show_PCA_Result();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -424,6 +370,65 @@ namespace dotNetChart
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void Show_Unit_Defect(float a)
+        {
+            
+            DistanceObject.Add(a);
+            count = DistanceObject.Count();
+            resultLOT = count;
+            LOTTEXT.Text = resultLOT.ToString();
+            int x = 0;
+            for (int i = 0; i < count; i++)
+            {
+                if (DistanceObject[i] == a)
+                {
+                    x++;
+                }
+            }
+            Show_AQL_Result(a, x);
+            
+        }
+        private void Show_AQL_Result(float a,int x)
+        {
+            chart1.Series[0].Points.AddXY(a, x);
+        }
+        private void Show_Graph_Cil()
+        {
+            for (float i = average - 5.0f; i < average + 5.0f; i += 0.1f)
+            {
+                numsman.Add(i);
+            }
+            for (int i = 0; i < numsman.Count; i++)
+            {
+                chart2.Series[0].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
+                chart2.Series[1].Points.AddXY(numsman[i], Calculman(numsman[i], average, resultSigma));
+                DelaySystem(100);
+            }
+            //LOTTEXT.Text = count.ToString();
+
+            if (resultAQL == 1)
+            {
+                AQLText.Text = "Pass";
+            }
+            else if (resultAQL == 0)
+            {
+                AQLText.Text = "Fail";
+
+            }
+            else
+            {
+                AQLText.Text = "ERROR";
+            }
+        }
+        private void Show_PCA_Result()
+        {
+            string datacp = CPCheck(resultCP);
+            PCAText.Text = datacp;
+            CPValueText.Text = resultCP.ToString();
+            MeanValue.Text = average.ToString();
+            SigmaValue.Text = resultSigma.ToString();
+            LOTTEXT.Text = resultLOT.ToString();
         }
     }
 }
