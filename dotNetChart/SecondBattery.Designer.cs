@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SecondBattery));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title3 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.CloseBtn = new System.Windows.Forms.Button();
@@ -46,7 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Chart2Btn = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.BoxPanel1 = new System.Windows.Forms.Panel();
             this.CPValueText = new System.Windows.Forms.Label();
             this.MeanValue = new System.Windows.Forms.Label();
             this.SigmaValue = new System.Windows.Forms.Label();
@@ -59,31 +60,44 @@
             this.PCAText = new System.Windows.Forms.Label();
             this.AQLText = new System.Windows.Forms.Label();
             this.LOTTEXT = new System.Windows.Forms.Label();
-            this.BatteryName = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.FirstPanel = new System.Windows.Forms.Panel();
+            this.stepProgressBarItem1 = new DevExpress.XtraEditors.StepProgressBarItem();
+            this.stepProgressBarItem2 = new DevExpress.XtraEditors.StepProgressBarItem();
+            this.stepProgressBarItem3 = new DevExpress.XtraEditors.StepProgressBarItem();
+            this.stepProgressBarItem4 = new DevExpress.XtraEditors.StepProgressBarItem();
+            this.stepProgressBarItem5 = new DevExpress.XtraEditors.StepProgressBarItem();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.BoxPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.FirstPanel.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
             this.chart1.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisX.Title = "Horizontal";
-            chartArea1.AxisY.Title = "Count";
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(12, 70);
+            chartArea5.AxisX.Title = "Horizontal";
+            chartArea5.AxisY.Title = "Count";
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
+            this.chart1.Location = new System.Drawing.Point(57, 122);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.DarkOrchid;
-            series1.Legend = "Legend1";
-            series1.Name = "치수값분포";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
-            this.chart1.Series.Add(series1);
+            series7.ChartArea = "ChartArea1";
+            series7.Color = System.Drawing.Color.DarkOrchid;
+            series7.Legend = "Legend1";
+            series7.Name = "치수값분포";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Single;
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(523, 524);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -92,19 +106,26 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(543, 70);
+            this.listBox1.Location = new System.Drawing.Point(586, 122);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(318, 212);
             this.listBox1.TabIndex = 1;
             // 
             // CloseBtn
             // 
-            this.CloseBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.CloseBtn.BackColor = System.Drawing.Color.Transparent;
+            this.CloseBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("CloseBtn.BackgroundImage")));
+            this.CloseBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.CloseBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.CloseBtn.FlatAppearance.BorderSize = 0;
+            this.CloseBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.CloseBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.CloseBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseBtn.Font = new System.Drawing.Font("배달의민족 주아", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.CloseBtn.Location = new System.Drawing.Point(1171, 690);
+            this.CloseBtn.Location = new System.Drawing.Point(1254, 658);
             this.CloseBtn.Name = "CloseBtn";
             this.CloseBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.CloseBtn.Size = new System.Drawing.Size(151, 65);
+            this.CloseBtn.Size = new System.Drawing.Size(128, 128);
             this.CloseBtn.TabIndex = 2;
             this.CloseBtn.Text = "종료하기";
             this.CloseBtn.UseVisualStyleBackColor = false;
@@ -112,11 +133,17 @@
             // 
             // ConnectBtn
             // 
-            this.ConnectBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ConnectBtn.BackColor = System.Drawing.Color.Transparent;
+            this.ConnectBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ConnectBtn.BackgroundImage")));
+            this.ConnectBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ConnectBtn.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.ConnectBtn.FlatAppearance.BorderSize = 0;
+            this.ConnectBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ConnectBtn.Font = new System.Drawing.Font("배달의민족 주아", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.ConnectBtn.Location = new System.Drawing.Point(196, 674);
+            this.ConnectBtn.ForeColor = System.Drawing.Color.Black;
+            this.ConnectBtn.Location = new System.Drawing.Point(673, 682);
             this.ConnectBtn.Name = "ConnectBtn";
-            this.ConnectBtn.Size = new System.Drawing.Size(151, 65);
+            this.ConnectBtn.Size = new System.Drawing.Size(96, 72);
             this.ConnectBtn.TabIndex = 5;
             this.ConnectBtn.Text = "접속";
             this.ConnectBtn.UseVisualStyleBackColor = false;
@@ -124,7 +151,7 @@
             // 
             // PortBox
             // 
-            this.PortBox.Location = new System.Drawing.Point(129, 640);
+            this.PortBox.Location = new System.Drawing.Point(338, 722);
             this.PortBox.Name = "PortBox";
             this.PortBox.Size = new System.Drawing.Size(297, 23);
             this.PortBox.TabIndex = 6;
@@ -132,7 +159,7 @@
             // 
             // IPBox
             // 
-            this.IPBox.Location = new System.Drawing.Point(129, 600);
+            this.IPBox.Location = new System.Drawing.Point(338, 682);
             this.IPBox.Name = "IPBox";
             this.IPBox.Size = new System.Drawing.Size(297, 23);
             this.IPBox.TabIndex = 7;
@@ -142,7 +169,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("굴림", 15F);
-            this.label1.Location = new System.Drawing.Point(37, 603);
+            this.label1.Location = new System.Drawing.Point(246, 685);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 20);
             this.label1.TabIndex = 8;
@@ -153,7 +180,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("굴림", 15F);
-            this.label2.Location = new System.Drawing.Point(37, 640);
+            this.label2.Location = new System.Drawing.Point(246, 722);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 20);
             this.label2.TabIndex = 9;
@@ -161,67 +188,70 @@
             // 
             // chart2
             // 
-            this.chart2.BackColor = System.Drawing.Color.Transparent;
             this.chart2.BorderlineColor = System.Drawing.Color.Maroon;
             this.chart2.BorderlineWidth = 3;
-            chartArea2.AxisX.Title = "Warping";
-            chartArea2.AxisY.Title = "Frequency";
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
-            this.chart2.Location = new System.Drawing.Point(867, 70);
+            chartArea6.AxisX.Title = "Warping";
+            chartArea6.AxisY.Title = "Frequency";
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chart2.Legends.Add(legend6);
+            this.chart2.Location = new System.Drawing.Point(910, 122);
             this.chart2.Name = "chart2";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "정규분포Bar";
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.Name = "Line";
-            series3.YValuesPerPoint = 2;
-            this.chart2.Series.Add(series2);
-            this.chart2.Series.Add(series3);
-            this.chart2.Size = new System.Drawing.Size(525, 524);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "정규분포Bar";
+            series9.BorderWidth = 3;
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series9.Legend = "Legend1";
+            series9.Name = "Line";
+            series9.YValuesPerPoint = 2;
+            this.chart2.Series.Add(series8);
+            this.chart2.Series.Add(series9);
+            this.chart2.Size = new System.Drawing.Size(700, 524);
             this.chart2.TabIndex = 11;
             this.chart2.Text = "chart2";
-            title1.DockedToChartArea = "ChartArea1";
-            title1.Name = "CP 정규분포 차트";
-            this.chart2.Titles.Add(title1);
+            title3.DockedToChartArea = "ChartArea1";
+            title3.Name = "CP 정규분포 차트";
+            this.chart2.Titles.Add(title3);
             // 
             // Chart2Btn
             // 
-            this.Chart2Btn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.Chart2Btn.BackColor = System.Drawing.Color.Transparent;
+            this.Chart2Btn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Chart2Btn.BackgroundImage")));
+            this.Chart2Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Chart2Btn.FlatAppearance.BorderSize = 0;
+            this.Chart2Btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Chart2Btn.Font = new System.Drawing.Font("배달의민족 주아", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.Chart2Btn.Location = new System.Drawing.Point(986, 690);
+            this.Chart2Btn.Location = new System.Drawing.Point(1083, 658);
             this.Chart2Btn.Name = "Chart2Btn";
-            this.Chart2Btn.Size = new System.Drawing.Size(151, 65);
+            this.Chart2Btn.Size = new System.Drawing.Size(128, 128);
             this.Chart2Btn.TabIndex = 12;
             this.Chart2Btn.Text = "정규분포";
             this.Chart2Btn.UseVisualStyleBackColor = false;
             this.Chart2Btn.Click += new System.EventHandler(this.Chart2Btn_Click);
             // 
-            // panel1
+            // BoxPanel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.CPValueText);
-            this.panel1.Controls.Add(this.MeanValue);
-            this.panel1.Controls.Add(this.SigmaValue);
-            this.panel1.Controls.Add(this.textBox6);
-            this.panel1.Controls.Add(this.textBox5);
-            this.panel1.Controls.Add(this.textBox4);
-            this.panel1.Controls.Add(this.textBox3);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.PCAText);
-            this.panel1.Controls.Add(this.AQLText);
-            this.panel1.Controls.Add(this.LOTTEXT);
-            this.panel1.Location = new System.Drawing.Point(543, 288);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(318, 306);
-            this.panel1.TabIndex = 16;
+            this.BoxPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BoxPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BoxPanel1.Controls.Add(this.CPValueText);
+            this.BoxPanel1.Controls.Add(this.MeanValue);
+            this.BoxPanel1.Controls.Add(this.SigmaValue);
+            this.BoxPanel1.Controls.Add(this.textBox6);
+            this.BoxPanel1.Controls.Add(this.textBox5);
+            this.BoxPanel1.Controls.Add(this.textBox4);
+            this.BoxPanel1.Controls.Add(this.textBox3);
+            this.BoxPanel1.Controls.Add(this.textBox2);
+            this.BoxPanel1.Controls.Add(this.textBox1);
+            this.BoxPanel1.Controls.Add(this.PCAText);
+            this.BoxPanel1.Controls.Add(this.AQLText);
+            this.BoxPanel1.Controls.Add(this.LOTTEXT);
+            this.BoxPanel1.Location = new System.Drawing.Point(586, 340);
+            this.BoxPanel1.Name = "BoxPanel1";
+            this.BoxPanel1.Size = new System.Drawing.Size(318, 306);
+            this.BoxPanel1.TabIndex = 16;
             // 
             // CPValueText
             // 
@@ -351,60 +381,163 @@
             this.LOTTEXT.TabIndex = 16;
             this.LOTTEXT.Text = "0";
             // 
-            // BatteryName
+            // panel2
             // 
-            this.BatteryName.AutoSize = true;
-            this.BatteryName.BackColor = System.Drawing.Color.Transparent;
-            this.BatteryName.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.BatteryName.ForeColor = System.Drawing.Color.Salmon;
-            this.BatteryName.Location = new System.Drawing.Point(442, 600);
-            this.BatteryName.Name = "BatteryName";
-            this.BatteryName.Size = new System.Drawing.Size(346, 42);
-            this.BatteryName.TabIndex = 17;
-            this.BatteryName.Text = "Project : Battery";
-            this.BatteryName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 1080);
+            this.panel2.TabIndex = 17;
             // 
-            // label9
+            // button3
             // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("휴먼옛체", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label9.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label9.Location = new System.Drawing.Point(442, 645);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(880, 42);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "2차전지 치수측정을 통한 불량률 산출 및 평가";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.button3.BackColor = System.Drawing.Color.Gray;
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button3.FlatAppearance.BorderSize = 5;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("배달의민족 주아", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button3.Location = new System.Drawing.Point(0, 160);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(200, 80);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "실시간";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Gray;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button2.FlatAppearance.BorderSize = 5;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("배달의민족 주아", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Location = new System.Drawing.Point(0, 80);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(200, 80);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Form2";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.button1.FlatAppearance.BorderSize = 5;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("배달의민족 주아", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(200, 80);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "실시간";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // FirstPanel
+            // 
+            this.FirstPanel.Controls.Add(this.Chart2Btn);
+            this.FirstPanel.Controls.Add(this.CloseBtn);
+            this.FirstPanel.Controls.Add(this.BoxPanel1);
+            this.FirstPanel.Controls.Add(this.label2);
+            this.FirstPanel.Controls.Add(this.label1);
+            this.FirstPanel.Controls.Add(this.chart1);
+            this.FirstPanel.Controls.Add(this.IPBox);
+            this.FirstPanel.Controls.Add(this.chart2);
+            this.FirstPanel.Controls.Add(this.PortBox);
+            this.FirstPanel.Controls.Add(this.listBox1);
+            this.FirstPanel.Controls.Add(this.ConnectBtn);
+            this.FirstPanel.Location = new System.Drawing.Point(221, 121);
+            this.FirstPanel.Name = "FirstPanel";
+            this.FirstPanel.Size = new System.Drawing.Size(1720, 981);
+            this.FirstPanel.TabIndex = 18;
+            // 
+            // stepProgressBarItem1
+            // 
+            this.stepProgressBarItem1.ContentBlock2.Caption = "Start";
+            this.stepProgressBarItem1.Name = "stepProgressBarItem1";
+            this.stepProgressBarItem1.State = DevExpress.XtraEditors.StepProgressBarItemState.Active;
+            // 
+            // stepProgressBarItem2
+            // 
+            this.stepProgressBarItem2.ContentBlock2.Caption = "MV_Check";
+            this.stepProgressBarItem2.Name = "stepProgressBarItem2";
+            this.stepProgressBarItem2.State = DevExpress.XtraEditors.StepProgressBarItemState.Active;
+            // 
+            // stepProgressBarItem3
+            // 
+            this.stepProgressBarItem3.ContentBlock2.Caption = "PassCheck";
+            this.stepProgressBarItem3.Name = "stepProgressBarItem3";
+            this.stepProgressBarItem3.State = DevExpress.XtraEditors.StepProgressBarItemState.Active;
+            // 
+            // stepProgressBarItem4
+            // 
+            this.stepProgressBarItem4.ContentBlock2.Caption = "Add_Data";
+            this.stepProgressBarItem4.Name = "stepProgressBarItem4";
+            // 
+            // stepProgressBarItem5
+            // 
+            this.stepProgressBarItem5.ContentBlock2.Caption = "Finish";
+            this.stepProgressBarItem5.Name = "stepProgressBarItem5";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(200, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1720, 93);
+            this.panel3.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("배달의민족 주아", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(374, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(955, 70);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Smart Dimension Measure System";
             // 
             // SecondBattery
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1404, 758);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.BatteryName);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.Chart2Btn);
-            this.Controls.Add(this.chart2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.IPBox);
-            this.Controls.Add(this.PortBox);
-            this.Controls.Add(this.ConnectBtn);
-            this.Controls.Add(this.CloseBtn);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.chart1);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ClientSize = new System.Drawing.Size(1920, 1080);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.FirstPanel);
+            this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("굴림", 10F);
             this.Name = "SecondBattery";
-            this.Text = "Form1";
+            this.Text = "Smart Dimension Measure System";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.BoxPanel1.ResumeLayout(false);
+            this.BoxPanel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.FirstPanel.ResumeLayout(false);
+            this.FirstPanel.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -420,21 +553,31 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
         private System.Windows.Forms.Button Chart2Btn;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel BoxPanel1;
         private System.Windows.Forms.Label PCAText;
         private System.Windows.Forms.Label AQLText;
         private System.Windows.Forms.Label LOTTEXT;
-        private System.Windows.Forms.Label BatteryName;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label CPValueText;
         private System.Windows.Forms.Label MeanValue;
         private System.Windows.Forms.Label SigmaValue;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel FirstPanel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label3;
+        private DevExpress.XtraEditors.StepProgressBarItem stepProgressBarItem1;
+        private DevExpress.XtraEditors.StepProgressBarItem stepProgressBarItem2;
+        private DevExpress.XtraEditors.StepProgressBarItem stepProgressBarItem3;
+        private DevExpress.XtraEditors.StepProgressBarItem stepProgressBarItem4;
+        private DevExpress.XtraEditors.StepProgressBarItem stepProgressBarItem5;
     }
 }
 

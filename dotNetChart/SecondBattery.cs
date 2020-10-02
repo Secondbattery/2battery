@@ -1,28 +1,23 @@
-﻿using System;
+﻿using DevExpress.Utils.Win;
+using MaterialSkin;
+using MaterialSkin.Controls;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Text;
-using System.Drawing.Drawing2D;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Timers;
+using System.Text;
 using System.Threading;
-using System.Linq.Expressions;
-using MaterialSkin.Controls;
-using MaterialSkin;
+using System.Windows.Forms;
 
 
 namespace dotNetChart
 {
-    public partial class SecondBattery : MaterialForm
+    public partial class SecondBattery : Form
     {
+
+       
         // var normal = new NormalDis
         private float resultCP = 0.75f;
         private int resultAQL = 0;
@@ -54,11 +49,12 @@ namespace dotNetChart
         {
             InitializeComponent();
 
-            var materialSkinManager = MaterialSkinManager.Instance;
+           /* var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900,
-                Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+             */
+            //Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             isConnected = false;
             DistanceObject.Clear();
         }
@@ -73,22 +69,25 @@ namespace dotNetChart
                 //이부분에서 각데이터별 함수로 위치 나누어주도록 할것
             });
         }
-      
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+           // this.FirstPanel.Visible = false;
+           // this.SecondPanel.Visible = true;
+            //this.FirstPanel.Visible = false;
+           
             SampleDt.Clear();
             Sample.Clear();
             count = 0;
-            
+
             chart2.Series[1].Color = Color.Red;
-            
+
         }
         private string WhatData(string data)
         {
             string str = data;
             if (data.Contains("Cp"))
-            {  
+            {
                 str = str.Substring(2);
                 //CP를 제외한 값을 저장
                 try
@@ -141,17 +140,17 @@ namespace dotNetChart
                 {
                     float a = Convert.ToSingle(str);
                     Show_Unit_Defect(a);
-                 
+
                 }
                 catch (Exception e)
                 {
-                    
+
 
                 }
 
 
             }
-         
+
             else if (data.Contains("Sigma"))
             {
                 str = str.Substring(5);
@@ -180,7 +179,7 @@ namespace dotNetChart
                 {
                     a = Convert.ToInt32(str);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Application.Exit();
                 }
@@ -196,9 +195,9 @@ namespace dotNetChart
                         Passed = "Pass";
                         listBox1.Items.Add(Passed);
                     }
-                    
+
                 }
-                
+
             }
             else
                 return str;
@@ -216,7 +215,7 @@ namespace dotNetChart
                 dtAfter = DateTime.Now;
             }
         }
-       
+
         private void button3_Click(object sender, EventArgs e)
         {
             for (int k = 0; k < 100; k++)
@@ -228,15 +227,15 @@ namespace dotNetChart
                 }
                 float x = SampleDt[count];
                 int xx = 0;
-                for(int v=0;v< SampleDt.Count(); v++)
+                for (int v = 0; v < SampleDt.Count(); v++)
                 {
-                    if(SampleDt[v]==x)
+                    if (SampleDt[v] == x)
                     {
                         xx++;
                     }
                 }
                 chart1.Series[0].Points.AddXY(SampleDt[k], xx);
-                string test = string.Format("치수 : {0}  합/불합 : {1}  검사횟수 : {2}", SampleDt[count], Passed, count+1);
+                string test = string.Format("치수 : {0}  합/불합 : {1}  검사횟수 : {2}", SampleDt[count], Passed, count + 1);
                 listBox1.Items.Add(test);
                 count++;
                 LOTTEXT.Text = count.ToString();
@@ -253,7 +252,7 @@ namespace dotNetChart
         {
             Invoke((MethodInvoker)delegate
             {
-               // client_socket.Close();
+                // client_socket.Close();
                 Application.Exit();
             });
         }
@@ -306,17 +305,17 @@ namespace dotNetChart
                     listBox1.Items.Add(String.Format("New Data is pushed : {0}", data.ToString()));
                     string data2 = WhatData(data);
 
-                   // listBox1.Items.Add(String.Format("New Data is pushed : {0}",data2.ToString()));
+                    // listBox1.Items.Add(String.Format("New Data is pushed : {0}",data2.ToString()));
                 }
             }
             catch (Exception e)
             {
-                listBox1.Items.Add(String.Format("실패",e.Message));
+                listBox1.Items.Add(String.Format("실패", e.Message));
             }
         }
 
 
-      
+
         private double Calculman(double x, float mean, float sigma)
         {
             double y = 0f;
@@ -334,11 +333,11 @@ namespace dotNetChart
             {
                 pca = "Excellent";
             }
-            else if(cp >1.67f )
+            else if (cp > 1.67f)
             {
                 pca = "Very Good";
             }
-            else if(cp > 1.33f)
+            else if (cp > 1.33f)
             {
                 pca = "Good";
             }
@@ -361,10 +360,10 @@ namespace dotNetChart
             }
             return pca;
         }
-       
+
         private void Chart2Btn_Click(object sender, EventArgs e)
         {
-          
+
             Show_Graph_Cil();
             Show_PCA_Result();
         }
@@ -380,7 +379,7 @@ namespace dotNetChart
         }
         private void Show_Unit_Defect(float a)
         {
-            
+
             DistanceObject.Add(a);
             count = DistanceObject.Count();
             resultLOT = count;
@@ -394,9 +393,9 @@ namespace dotNetChart
                 }
             }
             Show_AQL_Result(a, x);
-            
+
         }
-        private void Show_AQL_Result(float a,int x)
+        private void Show_AQL_Result(float a, int x)
         {
             chart1.Series[0].Points.AddXY(a, x);
         }
@@ -436,6 +435,15 @@ namespace dotNetChart
             MeanValue.Text = average.ToString();
             SigmaValue.Text = resultSigma.ToString();
             LOTTEXT.Text = resultLOT.ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
         }
     }
 }
