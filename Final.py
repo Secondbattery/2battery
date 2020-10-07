@@ -1,6 +1,4 @@
 import sqlite3 as sqlite
-import socket
-import re
 import math
 import time
 import random

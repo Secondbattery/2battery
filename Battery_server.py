@@ -1,6 +1,5 @@
 import sqlite3 as sqlite
-import socket
-import re
+from test import server
 import math
 import time
 import random
@@ -12,6 +11,7 @@ p2 = [(96,1), (92,1), (100,1), (95,1), (95,1), (97,1), (96,1), (96,1), (95,1), (
       (97,1), (93,1), (99.1,1), (94,1), (95,1), (97,1), (96,1), (96,1), (98,1), (94,1),
       (96,1), (95,1), (96,1), (94,1), (95,1), (95,1), (96,1), (96,1), (95,1), (96,1)]*3\
      +[(96,1), (97,1), (94,1), (93,1), (95,1), (94,1), (95,1), (96,1), (97,1), (93,1)]
+
 plen = p2.__len__()
 HOST = '192.168.101.101'
 PORT = 9008
@@ -25,10 +25,10 @@ GPIO.setwarnings(False)
 
 lot=100
 Unit_number = 0
+
 def led_init(led1,led2):
     GPIO.setup(led1,GPIO.OUT)
     GPIO.setup(led2,GPIO.OUT)
-
 def led_on(led_pin):
     GPIO.output(led_pin,True)
     time.sleep(0.1)
@@ -37,15 +37,15 @@ def led_off(led_pin):
     GPIO.output(led_pin,False)
 
 conn = sqlite.connect("test.db",isolation_level=None)
-
 c=conn.cursor()
+
 led_init(led1,led2)
 
 def Dot_Distance(x1, y1, x2, y2): 
     result_horizon  = round(math.sqrt(math.pow(abs(x1 - x2), 2) + math.pow(abs(y1 - y2), 2)), 1)
     return result_horizon
 
-def Unit_Defect(Unit_number, Result_horizon): 
+def Unit_Defect(Result_horizon): #Unit_number가 왜있었지???
     if (Result_horizon >= (h_standard * 0.96)) and (Result_horizon <= (h_standard * 1.04)):  
         result = 1 
     else:
@@ -150,7 +150,7 @@ def start(Unit_number):
     #print(Result_horizon)
     send_h = 'Distance'+str(Result_horizon)
     client_socket.send(send_h.encode())
-    Result_pass = Unit_Defect(Unit_number, Result_horizon)
+    Result_pass = Unit_Defect(Result_horizon)
     if Result_pass == 1:
         led_on(led1)
     elif Result_pass == 0:
@@ -208,8 +208,8 @@ if __name__ == "__main__":
     
     
     abc = plen
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket = server.socket(server.AF_INET, server.SOCK_STREAM)
+    server_socket.setsockopt(server.SOL_SOCKET, server.SO_REUSEADDR, 1)
 
     server_socket.bind((HOST, PORT))
     server_socket.listen(2)
