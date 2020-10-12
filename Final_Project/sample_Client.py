@@ -1,6 +1,6 @@
 import socket
 
-host = '192.168.0.121'
+host = '192.168.0.126'
 port = 7770
 client_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 client_socket.connect((host,port))
@@ -14,10 +14,10 @@ while True:
     print('6. 모터 역방향')
     print('7. 모터 정지')
     print('\n')
-
+    
     cl = input('입력하거라 ')
 
-    if int(cl) >7 or int(cl)<1:
+    if int(cl) >8 or int(cl)<1:
         break
 
 

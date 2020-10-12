@@ -114,7 +114,7 @@ if __name__ == "__main__":
     
     
     
-
+# operate by the Rassberry- pi 
     try:
         motor_init()
         while True:
@@ -134,8 +134,7 @@ if __name__ == "__main__":
                 break
             
     except KeyboardInterrupt:
-        GPIO.cleanup()
-        conn.close()
+        motor_stop()
         
     finally:
         GPIO.cleanup()
