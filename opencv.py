@@ -6,30 +6,30 @@ p=[]
 p1, p2, p3, p4 = [],[],[],[]
 
 def opencv_capture():
-    cap = cv2.VideoCapture(0)
-    count = 0
+    cap = cv2.VideoCapture(0) #
+    count = 0  #찍한 횟수
 
     while (True):
         ret, img = cap.read()  # Read 결과와 frame
 
-        cv2.imshow("Test", img)
+        cv2.imshow("Test", img)  # Test 화면에 img 표시
 
         if not ret:
             break
 
-        k = cv2.waitKey(1)
+        k = cv2.waitKey(1)  # 입력대기
 
-        if k % 256 == 27:
+        if k % 256 == 27:  # esc 버튼을 누르면 닫기
             print("Close")
             break
-        elif k % 256 == 32:
-            print("Image " + str(count) + "saved")
+        elif k % 256 == 32: # space 바를 누르면 사진 저장
+            print("Image " + str(count) + "saved")  #
             file = 'C:/Users/hangaramit26/PycharmProjects/2battery' + str(count) + '.png'
             cv2.imwrite(file, img)
             count += 1
             opencv_contour(file)
 
-    cv2.destroyAllWindows()
+    cv2.destroyAllWindows() # 이미지 윈도우 삭제
     cap.release()
 
 
@@ -37,21 +37,17 @@ font = cv2.FONT_HERSHEY_COMPLEX
 def opencv_contour(file):
     img2 = cv2.imread(file, cv2.IMREAD_COLOR)
 
-    # Reading same image in another
-    # variable and converting to gray scale.
-    img3 = cv2.imread(file, cv2.IMREAD_GRAYSCALE)
+    img3 = cv2.imread(file, cv2.IMREAD_GRAYSCALE) # 같은 이미지를 gray scale로 저장
 
-    # Converting image to a binary image
-    # ( black and white only image).
-    _, threshold = cv2.threshold(img3, 170, 255, cv2.THRESH_BINARY)
+    _, threshold = cv2.threshold(img3, 170, 255, cv2.THRESH_BINARY)  #gray scale로 된 이미지를 오직 검정, 화이트 이미지로 변환
 
     # Detecting contours in image.
-    contours, _ = cv2.findContours(threshold, cv2.RETR_TREE,
+    contours, _ = cv2.findContours(threshold, cv2.RETR_TREE,        # 이미지를 윤곽선 검출
                                    cv2.CHAIN_APPROX_SIMPLE)
 
     for cnt in contours:
 
-        epsilon = 0.02 * cv2.arcLength(cnt, True)
+        epsilon = 0.02 * cv2.arcLength(cnt, True)  # 근사치
         approx = cv2.approxPolyDP(cnt, epsilon, True)
 
         cv2.drawContours(img2, [approx], 0, (0, 0, 255), 1)
@@ -59,7 +55,7 @@ def opencv_contour(file):
         n = approx.ravel()
         i = 0
 
-        for j in n:
+        for j in n:  # 좌표값 추출
             if (i % 2 == 0):
                 x = n[i]
                 y = n[i + 1]
@@ -79,7 +75,7 @@ def opencv_contour(file):
     cv2.imshow('image2', img2)
 
     # Exiting the window if 'q' is pressed on the keyboard.
-    if cv2.waitKey(0) & 0xFF == ord('q'):
+    if cv2.waitKey(0) & 0xFF == ord('q'):  # q 누르면 화면 닫기
         cv2.destroyAllWindows()
 
 def coodinate_value():
@@ -100,7 +96,6 @@ print("p1")
 print(p1)
 print("p2")
 print(p2)
-
 print("p3")
 print(p3)
 print("p4")
