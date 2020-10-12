@@ -6,7 +6,7 @@ p=[]
 p1, p2, p3, p4 = [],[],[],[]
 
 def opencv_capture():
-    cap = cv2.VideoCapture(0) #
+    cap = cv2.VideoCapture(0) # 실시간 이미지 받아오기
     count = 0  #찍한 횟수
 
     while (True):
