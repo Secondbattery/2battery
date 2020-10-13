@@ -1,45 +1,15 @@
 import asyncio
 from random import random
-
-_host = '192.168.0.126'
-_port = 7770
+import sqlite3 as sqlite
 
 
-#asyncio socket server/client
-async def run_client(host: str, port: int):
-    # 서버와의 연결을 생성합니다.
-    reader: asyncio.StreamReader
-    writer: asyncio.StreamWriter
-    reader, writer = await asyncio.open_connection(host, port)
-
-    # show connection info
-    print("[C] connected")
-
-    # 루프를 돌면서 입력받은 내용을 서버로 보내고,
-    # 응답을 받으면 출력합니다.
-    while True:
-        line = input("[C] enter message: ")
-        if not line:
-            break
-
-        # 입력받은 내용을 서버로 전송
-        payload = line.encode()
-        writer.write(payload)
-        await writer.drain()
-        print(f"[C] sent: {len(payload)} bytes.\n")
-
-        # 서버로부터 받은 응답을 표시
-        data = await reader.read(1024)  # type: bytes
-        print(f"[C] received: {len(data)} bytes")
-        print(f"[C] message: {data.decode()}")
-
-    # 연결을 종료합니다.
-    print("[C] closing connection…")
-    writer.close()
-    await writer.wait_closed()
+_host = '127.0.0.1'
+_port = 9000
 
 
 async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+    no = 0
+
     while True:
         # 클라이언트가 보낸 내용을 받기
         data: bytes = await reader.read(1024)
@@ -48,12 +18,108 @@ async def handler(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         if data != None:
             peername = writer.get_extra_info('peername')
             print(f"[S] received: {len(data)} bytes from {peername}")
-            mes = data.decode()
-            print(f"[S] message: {mes}")
 
-            await asyncio.sleep(random() * 2)
-            writer.write(mes.encode())
+            cli_mes = data.decode() #client에서 보내준 data를 decode
+
+            if cli_mes.startswith('TOC'): # Rasp에서 C#으로 보내줄 data 서버에 출력
+                print("[Rasp_Client] message: {}".format(cli_mes[3:]))
+
+            elif cli_mes.startswith('TOR'): # C#에서 Rasp로 보내줄 data 서버에 출력
+                print("[C#_Client] message: {}".format(cli_mes[3:]))
+
+
+            #DB저장하기
+            no+=1 #해당 index에 값을 넣어주기 위해 추가
+
+            conn = sqlite.connect("DB.db")  # DB파일에 연결
+            c = conn.cursor()  # 커서획득
+
+            #Unit_factory 테이블에 데이터 INSERT
+            if cli_mes.startswith('TORUnit_date'):
+                insert_cli_mes = cli_mes.replace('TORUnit_date','').split(',')
+                index_cli_mes = insert_cli_mes[1]
+                send_cli_mes = 'TORUnit_no' + insert_cli_mes[1]
+
+                # C#_client로 입력받은 로트를 Rasp_client에 전송
+                payload = send_cli_mes.encode()
+                writer.write(payload)
+                await writer.drain()
+                print("[Server] sent: {}".format(send_cli_mes))
+
+
+                for no in range(1, int(index_cli_mes)+1): #로트 크기만큼 Unit_date 값 넣어주기
+                    c.execute('''INSERT INTO Unit_factory(Unit_date, Unit_no)
+                                 VALUES(%s, %s)''' % (insert_cli_mes[0], no))
+
+                c.execute('''INSERT INTO Result(Result_date)
+                             VALUES(%s)''' % (insert_cli_mes[0]))
+
+
+            elif cli_mes.startswith('TOCUnit_no'):
+                insert_cli_mes = cli_mes.replace('TOC','').split(',')
+                #insert_cli_mes 순서 => [Unit_no, Unit_horizon, Unit_vertical, Unit_hpass, Unit_vpass
+
+                # 입력받은 로트를 C#_client에 전송
+                payload = cli_mes.encode()
+                writer.write(payload)
+                await writer.drain()
+                print("[Server] sent: {}".format(cli_mes))
+
+                #DB파일에 저장
+                c.execute('''UPDATE Unit_factory SET  
+                            Unit_horizon = %s, Unit_vertical = %s, 
+                            Unit_hpass = %s, Unit_vpass = %s
+                            WHERE Unit_no = %s'''
+                            % (insert_cli_mes[1][12:],insert_cli_mes[2][13:],
+                               insert_cli_mes[3][10:],insert_cli_mes[4][10:],
+                               insert_cli_mes[0][7:]) )
+
+
+
+
+            #Result 테이블에 데이터 삽입
+            elif cli_mes.startswith('TORStandard'):
+                insert_cli_mes = cli_mes.replace('TOR','').split(',')
+
+                # C#_client로 입력 받은 규격을 Rasp_client에 전송
+                payload = cli_mes.encode()
+                writer.write(payload)
+                await writer.drain()
+                print("[Server] sent: {}".format(cli_mes))
+
+                c.execute('''INSERT INTO Result(hStandard, vStandard)
+                             VALUES(%s, %s)''' % (insert_cli_mes[0][9:], insert_cli_mes[1][9:]))
+
+            elif cli_mes.startswith('TOCAQL_hpass'):
+                insert_cli_mes = cli_mes.replace('TOC','').split(',')
+                #insert_cli_mes 순서 => [AQL_hpass, AQL_vpass, hMean, vMean, hSigma, vSigma, hCp, vCp]
+
+                # C#_client로 입력 받은 결과값을 Rasp_client에 전송
+                payload = cli_mes.encode()
+                writer.write(payload)
+                await writer.drain()
+                print("[Server] sent: {}".format(cli_mes))
+
+                c.execute('''UPDATE Result SET 
+                            AQL_hpass = %s, AQL_vpass = %s, 
+                            hMean = %s, vMean = %s,
+                            hSigma = %s, vSigma = %s,
+                            hCp = %s, vCp = %s'''
+                            % (insert_cli_mes[0][9:],insert_cli_mes[1][9:],
+                               insert_cli_mes[2][5:],insert_cli_mes[3][5:],
+                               insert_cli_mes[4][6:], insert_cli_mes[5][6:],
+                               insert_cli_mes[6][3:], insert_cli_mes[7][3:]) )
+
+            conn.commit()  # 트랜젝션의 내용을 DB에 반영함
+            conn.close()  # 커서닫기
+
+
+            await asyncio.sleep(0.2) #대기
+
+            serv_mes = 'Success'
+            writer.write(serv_mes.encode())
             await writer.drain()
+            print("[Server] sent: {}".format(serv_mes))
 
 
 async def run_server():
