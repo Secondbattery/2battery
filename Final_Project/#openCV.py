@@ -90,6 +90,7 @@ def coodinate_value():
             p3.append(p_list[i])
 
 
+
 opencv_capture()
 coodinate_value()
 print("p1")
