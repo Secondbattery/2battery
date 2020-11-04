@@ -401,111 +401,216 @@
                         <div class="row items-align-baseline">
 
                 
-                        <div class="col-md-12 col-lg-3">
+                          <div class="col-md-12 col-lg-3">
+                            <div class="card shadow">
+                              <div class="card-body text-center" style="position: relative;height: 250px;">
+                                <div id="radialbar"></div>
+                              </div> <!-- / .card-body -->
+                            </div> <!-- / .card -->
+                          </div> <!-- /. col -->
+          
+                          <div class="col-md-12 col-lg-5">
+                            <div class="card shadow eq-card mb-4">
+                              <div class="card-body" style="position: relative;height: 250px;">
+                                <div class="d-flex mt-3 mb-4">
+                                  <div class="flex-fill chart-box mt-n2">
+                                    <div id="barChart"></div>
+                                  </div>
+                                </div> <!-- .d-flex -->
+                              </div> <!-- .card-body -->
+                            </div> <!-- .card -->
+                          </div> <!-- .col -->
+          
+          
+                          <div class="col-md-12 col-lg-4">
+                            <div class="card shadow">
+                              <div class="card-body" style="position: relative;height: 250px;">
+                                <div id="columnChart"></div>
+                              </div> <!-- /.card-body -->
+                            </div> <!-- /.card -->
+                          </div> <!-- .col-md -->
+          
+          
+                        </div> <!-- .row -->
+                      
+  
+                      <div class="row">
+  
+                        <!--1호기-->
+                        <div class="col-md-4">
                           <div class="card shadow">
-                            <div class="card-body text-center" style="position: relative;height: 250px;">
-                              <div id="radialbar"></div>
-                            </div> <!-- / .card-body -->
-                          </div> <!-- / .card -->
-                        </div> <!-- /. col -->
-        
-                        <div class="col-md-12 col-lg-5">
-                          <div class="card shadow eq-card mb-4">
-                            <div class="card-body" style="position: relative;height: 250px;">
-                              <div class="d-flex mt-3 mb-4">
-                                <div class="flex-fill chart-box mt-n2">
-                                  <div id="barChart"></div>
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">1호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-primary" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">가동</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" 
+                                  aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              </div> <!-- .d-flex -->
-                            </div> <!-- .card-body -->
-                          </div> <!-- .card -->
-                        </div> <!-- .col -->
-        
-        
-                        <div class="col-md-12 col-lg-4">
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품 </div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--2호기-->
+                        <div class="col-md-4">
                           <div class="card shadow">
-                            <div class="card-body" style="position: relative;height: 250px;">
-                              <div id="columnChart"></div>
-                            </div> <!-- /.card-body -->
-                          </div> <!-- /.card -->
-                        </div> <!-- .col-md -->
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">2호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-primary" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">가동</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품</div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--3호기-->
+                        <div class="col-md-4">
+                          <div class="card shadow">
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">3호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-danger" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">중지</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품</div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
         
-        
-                      </div> <!-- .row -->
-                    
-
-                    <div class="row">
-
-                      <!--1호기-->
-                      <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow">
-                          <div class="card-body">
-                            <div class="row align-items-center">
-                              <div class="col">
-                                  <p class="small text-muted mb-0">1호기</p>
-                                  <div class="progress progress-sm mt-2" style="height:5px">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
-                                      </div>
-                                <div class="row align-items-center no-gutters">
-                                  <div class="col-auto">
-                                    <span class="h3 mr-2 mb-0"> 71.5% 
-                                      <div><button  class="btn mb-2 btn-primary" 
-                                        style="width: 70px; border-radius: 30px;">
-                                        가동</button></div>
-                                    </span>
-                                  </div>
+                      </div> <!-- .row-->
+  
+                      <div class="row" style="margin-top: 2%;">
+                         <!--4호기-->
+                         <div class="col-md-4">
+                          <div class="card shadow">
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">4호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-primary" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">가동</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품</div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <!--2호기-->
-                      <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow">
-                          <div class="card-body">
-                            <div class="row align-items-center">
-                              <div class="col">
-                                <p class="small text-muted mb-0">2호기</p>
-                                <div class="row align-items-center no-gutters">
-                                  <div class="col-auto">
-                                    <span class="h3 mr-2 mb-0"> 30.1% </span>
-                                  </div>
-                                  <div class="col-md-12 col-lg">
-                                    <div class="progress progress-sm mt-2" style="height:3px">
-                                      <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                  </div>
+                        <!--5호기-->
+                        <div class="col-md-4">
+                          <div class="card shadow">
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">5호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-primary" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">가동</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품</div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <!--3호기-->
-                      <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow">
-                          <div class="card-body">
-                            <div class="row align-items-center">
-                              <div class="col">
-                                <p class="small text-muted mb-0">3호기</p>
-                                <div class="row align-items-center no-gutters">
-                                  <div class="col-auto">
-                                    <span class="h3 mr-2 mb-0"> 30.1% </span>
-                                  </div>
-                                  <div class="col-md-12 col-lg">
-                                    <div class="progress progress-sm mt-2" style="height:3px">
-                                      <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                  </div>
+                        <!--6호기-->
+                        <div class="col-md-4">
+                          <div class="card shadow">
+                            <div class="card-body" style="height: 150px;">
+                              <div style="width: 30%; float: left; box-sizing: border-box;">
+                                <p class="small text-muted mb-0" style="margin-bottom: 10px;">6호기</p> 
+                                <span class="h2 mr-2 mb-0" > 67.1% </span>
+                                <button  class="btn mb-2 btn-primary" 
+                                          style="width: 70px; border-radius: 30px; margin-top: 10px;">가동</button>
+                              </div>
+                              <div style="width: 70%; float: right; box-sizing: border-box;">
+                                <div class="progress progress-sm mt-2" style="height:5px; margin-bottom: 20px;">
+                                  <div class="progress-bar bg-success" role="progressbar" style="width: 71%" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div style="width: 50%; float: left;">
+                                  <div id="in">생산제품</div>
+                                  <div id="in">생산량</div>
+                                  <div>목표량</div>
+                                </div>
+                                <div style="width: 50%; float:right;">
+                                  <div id="in">수율</div>
+                                  <div id="in">효율</div>
+                                  <div>LOSS</div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-      
-                    </div> <!-- .row-->
+  
+                      </div>  <!-- .row-->
                   </div>
                     </div>
                 </div>
